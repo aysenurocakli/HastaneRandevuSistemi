@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randevu Alma Sayfası</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+</head>
+<body>
+    <h2 class="test">Randevu Al</h2>
+    <form id="loginForm" action="/login" method="post">
+        <label for="city">İl:</label><br>
+        <select id="city" name="city">
+            
+        </select><br>
+        <label for="district">İlçe:</label><br>
+        <select id="district" name="district">
+            <!-- Default olarak bir değer göstermek için bir seçenek ekleyebilirsiniz -->
+        </select><br>
+        
+        <label for="hospital">Hastane:</label><br>
+        <select id="hospital" name="hospital">
+        </select><br>
+        <label for="policlinic">Poliklinik:</label><br>
+        <select id="policlinic" name="policlinic">
+            <option value="goz hastaliklari">Göz Hastalıkları</option>
+            <option value="cildiye">Cildiye</option>
+            <option value="Dahiliye">Dahiliye</option>
+            <option value="Kardiyoloji">Kardiyoloji</option>
+            <option value="nöroloji">Nöroloji</option>
+        </select><br>
+        <label for="doctors">Doktor:</label><br>
+        <select id="doctors" name="doctors">
+        </select><br>
+        <label for="date">Tarih:</label><br>
+        <input type="text" id="date" name="date"> 
+        <label for="hour">Saat:</label><br>
+        <select id="hour" name="hour">
+            <option value="oniki">09:00-09:30</option>
+            <option value="oniki">09:30-10:00</option>
+            <option value="oniki">10:00-10:30</option>
+            <option value="oniki">10:30-11:00</option>
+            <option value="oniki">11:00-11:30</option>
+        </select><br>
+        <input type="submit" value="Randevu Al" id="loginButton">
+    </form>
+    <div id="errorMessage" style="color: red;"></div>
+
+    <script>
+        function updateDistricts() {
+            const selectedCity = document.getElementById("city").value;
+            const districtSelect = document.getElementById("district");
+            districtSelect.innerHTML = ""; // İlçe seçeneklerini temizle
+
+            if (selectedCity === "istanbul") {
+                const istanbulDistricts = ["Kadıköy", "Beşiktaş", "Üsküdar"];
+                istanbulDistricts.forEach(district => {
+                    const option = document.createElement("option");
+                    option.value = district.toLowerCase(); // Küçük harfle kaydetmek için
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            } else if (selectedCity === "ankara") {
+                const ankaraDistricts = ["Gölbaşı", "Mamak", "Çankaya"];
+                ankaraDistricts.forEach(district => {
+                    const option = document.createElement("option");
+                    option.value = district.toLowerCase(); // Küçük harfle kaydetmek için
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            } else if (selectedCity === "izmir") {
+                const izmirDistricts = ["Foça", "Bornova", "Konak"];
+                izmirDistricts.forEach(district => {
+                    const option = document.createElement("option");
+                    option.value = district.toLowerCase(); // Küçük harfle kaydetmek için
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        }
+
+        function updateHospitals() {
+            const selectedCity = document.getElementById("city").value;
+            const selectedDistrict = document.getElementById("district").value;
+            const hospitalSelect = document.getElementById("hospital");
+            const doctorsSelect = document.getElementById("doctors");
+            hospitalSelect.innerHTML = ""; // Hastane seçeneklerini temizle
+
+            if (selectedCity === "istanbul") {
+                if (selectedDistrict === "kadıköy") { // Değişiklik burada
+                const kadikoyHospitals = ["Kadıköy Hastanesi 1", "Kadıköy Hastanesi 2", "Kadıköy Hastanesi 3"];
+                kadikoyHospitals.forEach(hospital => {
+                    const option = document.createElement("option");
+                    option.value = hospital.toLowerCase().replace(/\s/g, ''); // Boşlukları kaldırarak küçük harfle kaydetmek için
+                    option.textContent = hospital;
+                    hospitalSelect.appendChild(option);
+                });
+                }
+                else if (selectedDistrict === "beşiktaş") { // Değişiklik burada
+                const besiktasHospitals = ["Beşiktaş Hastanesi 1", "Beşiktaş Hastanesi 2", "Beşiktaş Hastanesi 3"];
+                besiktasHospitals.forEach(hospital => {
+                    const option = document.createElement("option");
+                    option.value = hospital.toLowerCase().replace(/\s/g, ''); // Boşlukları kaldırarak küçük harfle kaydetmek için
+                    option.textContent = hospital;
+                    hospitalSelect.appendChild(option);
+                });
+                }
+                else if (selectedDistrict === "üsküdar") { // Değişiklik burada
+                const uskudartasHospitals = ["Üsküdar Hastanesi 1", "Beşiktaş Hastanesi 2", "Beşiktaş Hastanesi 3"];
+                uskudartasHospitals.forEach(hospital => {
+                    const option = document.createElement("option");
+                    option.value = hospital.toLowerCase().replace(/\s/g, ''); // Boşlukları kaldırarak küçük harfle kaydetmek için
+                    option.textContent = hospital;
+                    hospitalSelect.appendChild(option);
+                });
+                }
+            }else if (selectedCity === "ankara") {
+                if (selectedDistrict === "gölbaşı") { // Değişiklik burada
+                const golbasıHospitals = ["golbası Hastanesi 1", "golbası Hastanesi 2", "golbası Hastanesi 3"];
+                golbasıHospitals.forEach(hospital => {
+                    const option = document.createElement("option");
+                    option.value = hospital.toLowerCase().replace(/\s/g, ''); // Boşlukları kaldırarak küçük harfle kaydetmek için
+                    option.textContent = hospital;
+                    hospitalSelect.appendChild(option);
+                });
+                }
+                else if (selectedDistrict === "mamak") { // Değişiklik burada
+                const mamakHospitals = ["mamak Hastanesi 1", "mamak Hastanesi 2", "mamak Hastanesi 3"];
+                mamakHospitals.forEach(hospital => {
+                    const option = document.createElement("option");
+                    option.value = hospital.toLowerCase().replace(/\s/g, ''); // Boşlukları kaldırarak küçük harfle kaydetmek için
+                    option.textContent = hospital;
+                    hospitalSelect.appendChild(option);
+                });
+                }
+                else if (selectedDistrict === "çankaya") { // Değişiklik burada
+                const cankayaHospitals = ["çankaya Hastanesi 1", "çankaya Hastanesi 2", "Beşiktaş Hastanesi 3"];
+                cankayaHospitals.forEach(hospital => {
+                    const option = document.createElement("option");
+                    option.value = hospital.toLowerCase().replace(/\s/g, ''); // Boşlukları kaldırarak küçük harfle kaydetmek için
+                    option.textContent = hospital;
+                    hospitalSelect.appendChild(option);
+                });
+                }
+                // ...
+            } else if (selectedCity === "izmir") {
+                if (selectedDistrict === "foça") { // Değişiklik burada
+                const focaHospitals = ["foça Hastanesi 1", "foça Hastanesi 2", "foça Hastanesi 3"];
+                focaHospitals.forEach(hospital => {
+                    const option = document.createElement("option");
+                    option.value = hospital.toLowerCase().replace(/\s/g, ''); // Boşlukları kaldırarak küçük harfle kaydetmek için
+                    option.textContent = hospital;
+                    hospitalSelect.appendChild(option);
+                });
+                }
+                else if (selectedDistrict === "bornova") { // Değişiklik burada
+                const bornovaHospitals = ["bornova Hastanesi 1", "bornova Hastanesi 2", "bornova Hastanesi 3"];
+                bornovaHospitals.forEach(hospital => {
+                    const option = document.createElement("option");
+                    option.value = hospital.toLowerCase().replace(/\s/g, ''); // Boşlukları kaldırarak küçük harfle kaydetmek için
+                    option.textContent = hospital;
+                    hospitalSelect.appendChild(option);
+                });
+                }
+                else if (selectedDistrict === "konak") { // Değişiklik burada
+                const konakHospitals = ["konak Hastanesi 1", "konak Hastanesi 2", "konak Hastanesi 3"];
+                konakHospitals.forEach(hospital => {
+                    const option = document.createElement("option");
+                    option.value = hospital.toLowerCase().replace(/\s/g, ''); // Boşlukları kaldırarak küçük harfle kaydetmek için
+                    option.textContent = hospital;
+                    hospitalSelect.appendChild(option);
+                });
+                }
+            }
+        }
+        function updateDoctors() {
+    const selectedPoliklinik = document.getElementById("policlinic").value;
+    const doctorsSelect = document.getElementById("doctors");
+    doctorsSelect.innerHTML = ""; // Doktor seçeneklerini temizle
+
+    // Polikliniklere göre doktor listeleri
+    const poliklinikDoctors = {
+        "goz hastaliklari": ["Dr. Ahmet Yılmaz", "Dr. Mehmet Demir", "Dr. Ayşe Kaya"],
+        "cildiye": ["Dr. Ali Can", "Dr. Zeynep Öztürk", "Dr. Ahmet Kocaman"],
+        "Dahiliye": ["Dr. Esra Çelik", "Dr. Fatma Aktaş", "Dr. Emre Özdemir"],
+        "Kardiyoloji": ["Dr. Yasemin Kaya", "Dr. Burak Arslan", "Dr. Seda Erdoğan"],
+        "nöroloji": ["Dr. Eren Yıldız", "Dr. İrem Şahin", "Dr. Aslı Demir"]
+        // Diğer poliklinikler için doktor listelerini buraya ekleyin
+    };
+
+    // Seçilen poliklinikle eşleşen doktor listesini alın
+    const selectedDoctors = poliklinikDoctors[selectedPoliklinik];
+
+    // Eğer seçili poliklinik için doktorlar varsa, seçenekleri oluşturun
+    if (selectedDoctors) {
+        selectedDoctors.forEach(doctor => {
+            const option = document.createElement("option");
+            option.value = doctor.toLowerCase().replace(/\s/g, '');
+            option.textContent = doctor;
+            doctorsSelect.appendChild(option);
+        });
+    }
+}
+document.addEventListener("DOMContentLoaded", function() {
+    const citySelect = document.getElementById("city");
+    const policlinicSelect = document.getElementById("policlinic");
+    const hourSelect = document.getElementById("hour");
+
+    // İl seçeneklerini ekleme
+    const cities = ["İstanbul", "Ankara", "İzmir"];
+    cities.forEach(city => {
+        const option = document.createElement("option");
+        option.value = city.toLowerCase();
+        option.textContent = city;
+        citySelect.appendChild(option);
+    });
+    
+    citySelect.addEventListener("change", function() {
+                updateDistricts(); // İl seçildiğinde ilçeleri güncelle
+            });
+
+});
+document.getElementById("city").addEventListener("change", function() {
+    updateDistricts(); // İl seçildiğinde ilçeleri güncelle
+});
+document.getElementById("district").addEventListener("change", function() {
+    updateHospitals(); // İlçe seçildiğinde hastaneleri güncelle
+});
+document.getElementById("policlinic").addEventListener("change", function() {
+    updateDoctors(); // Poliklinik seçildiğinde doktorları güncelle
+});
+document.addEventListener("DOMContentLoaded", function() {
+    flatpickr("#date", {
+    dateFormat: "Y-m-d",
+    minDate: "today",
+    onChange: function(selectedDates, dateStr, instance) {
+        console.log(dateStr); // Seçilen tarihi konsola yazdırma (örneğin)
+        // Burada seçilen tarih ile ilgili yapılacak işlemleri gerçekleştirebilirsiniz
+        // Örneğin, seçilen tarihe göre uygun saatleri getirme vb.
+    }
+});
+
+});
+
+
+
+
+
+        
+    </script>
+</body>
+</html>

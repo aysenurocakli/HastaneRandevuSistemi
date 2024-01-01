@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h2>Kayıt Ol</h2>
+    <form id="registerForm" action="/register" method="post">
+        <label for="username">Tc Kimlik Numarası:</label><br>
+        <input type="text" id="username" name="username" placeholder="TC Kimlik Numaranızı girin"><br>
+        <label for="pwd">Şifre:</label><br>
+        <input type="password" id="pwd" name="pwd" placeholder="Şifrenizi belirleyin"><br>
+        <input type="submit" value="Kayıt Ol">
+    </form> 
+    <script>
+     $(document).ready(function() {
+            $('#registerForm').on('submit', function(e) {
+                e.preventDefault();
+                var username = $('#username').val();
+                var password = $('#pwd').val();
+                $.ajax({
+                    url: 'http://localhost:5028/User/register',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        username: username,
+                        password: password
+                    }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(response) {
+                        // handle success
+                    },
+                    error: function(error) {
+                        // handle error
+                    }
+                });
+            });
+     });
+    </script>
+</body>
+</html>

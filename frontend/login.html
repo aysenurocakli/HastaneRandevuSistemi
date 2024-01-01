@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoş Geldiniz</title>
+    <link rel="stylesheet" href="styles.css">
+   
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h2 class="test">Hoş Geldiniz</h2>
+    <form id="loginForm" action="/login" method="post">
+        <label for="username">TC Kimlik Numarası:</label><br>
+        <input type="text" id="username" name="username" placeholder="TC Kimlik Numarası"><br>
+        <label for="pwd">Şifre:</label><br>
+        <input type="password" id="pwd" name="pwd" placeholder="Şifre"><br>
+        <input type="submit" value="Giriş Yap" id="loginButton">
+        <p class="registerLink">
+            Kayıtlı değil misiniz? <a href="/register">Kayıt Ol</a>
+        </p>
+    </form>
+    <div id="errorMessage" style="color: red;"></div>
+    
+    <script>
+        $(document).ready(function() {
+            $('#loginForm').on('submit', function(e) {
+                e.preventDefault();
+                var username = $('#username').val();
+                var password = $('#pwd').val();
+                $.ajax({
+                    url: 'http://localhost:5028/User/login',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        username: username,
+                        password: password
+                    }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.Role === 'PATIENT') {
+                            window.location.href = 'welcome_page.html'; // Kullanıcı rolü "patient" ise welcome_page.html sayfasına yönlendir
+                        } else if (response.Role === 'ADMIN'){
+                            window.location.href = 'welcome_admin.html'; 
+                        }
+                    },
+                    error: function(error) {
+                        // handle error
+                        $('#errorMessage').text('Kullanıcı adı ya da şifre yanlış.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

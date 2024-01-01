@@ -1,0 +1,129 @@
+/* Reset some basic elements */
+body, h1, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set some basic styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    overflow-y: scroll;
+}
+
+h1 {
+    margin-bottom: 20px;
+    text-align: center;
+    z-index: 1; /* Formun üzerinde kalmasını sağlar */
+}
+
+h2 {
+    text-align: center; /* Yazıyı yatayda ortala */
+    margin-top: 50px; /* Yukarıdan 50 piksel boşluk bırak */
+}
+
+form {
+    width: 300px;
+    margin: 0 auto;
+    position: relative; /* Sayfa ortasına hizalama için */
+}
+
+/* Tüm select elementlerine uygulanacak genel stiller */
+select {
+    width: 100%; /* Yatay boyutu kısalt */
+    padding: 15px; /* Metin ile hizalama */
+    margin: 8px 0;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 30px;
+    
+
+}
+label{
+    text-align: right;
+}
+h1.test {
+    margin-top: 50px;;
+}
+
+input[type=text], input[type=password], input[type=date] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+input[type=submit] {
+    background-color: plum !important;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 200px;
+    border-radius: 20px;
+    font-size: 18px; /* Font büyüklüğü */
+    margin-left: 50px; /* Sağa kaydırma miktarı */
+  
+}
+#appointment, #view {
+    font-size: 1.5em;
+    background-color: plum; /* lilac color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+/* Butonun hover özellikleri */
+form {
+    position: relative;
+}
+
+form p.registerLink {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: absolute;
+    bottom: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #333;
+}
+
+form p.registerLink a {
+    color: black;
+    margin-left: 10px;
+}
+
+@media (max-width: 500px) {
+    form p.registerLink {
+        font-size: 14px;
+    }
+}
+/* Tarih seçici alanının genel stilini özelleştirme */
+.flatpickr-calendar {
+    background-color: #fff; /* Arkaplan rengini değiştirme */
+    border: 1px solid #ccc; /* Kenarlık rengini ve kalınlığını değiştirme */
+    /* Diğer stil özelliklerini buraya ekleyebilirsiniz */
+  }
+  
+  /* Tarih seçici içindeki tarihleri özelleştirme */
+  .flatpickr-day {
+    color: #333; /* Tarih rengini değiştirme */
+    /* Diğer stil özelliklerini buraya ekleyebilirsiniz */
+  }
+  
+  /* Aktif tarih rengini değiştirme */
+  .flatpickr-day.selected {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+
+  

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doktor Ekle</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h2>Doktor Ekle</h2>
+    <form id="registerForm">
+        <label for="username">İsim:</label><br>
+        <input type="text" id="username" name="username" placeholder="İsimi girin"><br>
+        <label for="surname">Soyisim:</label><br>
+        <input type="text" id="surname" name="surname" placeholder="Soyisimi girin"><br>
+        <label for="department">Poliklinik:</label><br>
+        <input type="text" id="department" name="department" placeholder="Poliklinik girin"><br>
+        <input type="submit" value="Kayıt Et">
+    </form> 
+    <script>
+        $(document).ready(function() {
+            $('#registerForm').on('submit', function(e) {
+                e.preventDefault();
+                var username = $('#username').val();
+                var surname = $('#surname').val();
+                var department = $('#department').val();
+                
+                // Kontrol et
+                if (username === '' || surname === '' || department === '') {
+                    alert('Lütfen tüm alanları doldurun!');
+                } else {
+                    $.ajax({
+                        url: 'http://localhost:5028/User/register',
+                        type: 'POST',
+                        data: JSON.stringify({
+                            username: username,
+                            surname: surname,
+                            department: department
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function(response) {
+                            // handle success
+                        },
+                        error: function(error) {
+                            // handle error
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
