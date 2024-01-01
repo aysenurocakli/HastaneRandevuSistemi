@@ -17,15 +17,17 @@
         <input type="button" value="Randevu Al" id="appointment"><br>
         <input type="button" value="Randevularımı Görüntüle" id="view">
     </div>
-    
-    <script>
-        function makeAppointment() {
-            // Add your logic for making an appointment here
-        }
 
-        function myAppointments() {
-            // Add your logic for displaying user's appointments here
-        }
+    <script>
+        // Add event listener to the "Randevu Al" button
+        document.getElementById('appointment').addEventListener('click', function() {
+            window.location.href = 'appointment.html'; // Redirect to appointment.html
+        });
+
+        // Add event listener to the "Randevularımı Görüntüle" button
+        document.getElementById('view').addEventListener('click', function() {
+            window.location.href = 'list_appointment.html'; // Redirect to list_appointment.html
+        });
     </script>
 </body>
 </html>
